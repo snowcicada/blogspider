@@ -1,0 +1,15 @@
+How to use blogspider?
+
+1.Building project:
+make
+
+2.Cleaning project:
+make clean
+
+2.Download CSDN Blog, "gzshun" is a csdn id:
+./blogspider gzshun
+
+
+Description:
+The blogspider can download all blogs of one csdn id. 
+And this is also a blog backup utility.
