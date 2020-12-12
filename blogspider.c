@@ -4,7 +4,7 @@
 ** Date         : 20120202
 ** Description  : Download CSDN blog from pure c.
 ** GitHub       : https://github.com/snowcicada
-** E-mail       : snowcicadas#gmail.com (# -> @)
+** E-mail       : snowcicada#163.com (# -> @)
 ** This file may be redistributed under the terms of the GNU Public License.
 ***************************************************************************/
 
@@ -53,19 +53,19 @@
 #define BLOG_UNDOWNLOAD  (21)
 
 typedef struct tag_blog_info {
-	char *b_url;           /*ÍøÖ·*/
-	char *b_host;          /*ÍøÕ¾·şÎñÆ÷Ö÷»úÃû*/
-	char *b_page_file;     /*Ò³ÃæÎÄ¼şÃû³Æ*/
-	char *b_local_file;    /*±¾µØ±£´æµÄÎÄ¼şÃû³Æ*/
-	char *b_title;         /*²©¿ÍÖ÷Ìâ*/
-	char *b_date;          /*²©¿Í·¢±íÈÕÆÚ*/
-	int   b_port;          /*ÍøÖ·¶Ë¿ÚºÅ*/
-	int   b_sockfd;        /*ÍøÂçÌ×½Ó×Ö*/
-	int   b_reads;         /*ÔÄ¶Á´ÎÊı*/
-	int   b_comments;      /*ÆÀÂÛ´ÎÊı*/
-	int   b_download;      /*ÏÂÔØ×´Ì¬*/
-	int   b_lock;          /*´¦ÀíËø*/
-	int   b_seq_num;       /*ĞòºÅ*/
+	char *b_url;           /*ç½‘å€*/
+	char *b_host;          /*ç½‘ç«™æœåŠ¡å™¨ä¸»æœºå*/
+	char *b_page_file;     /*é¡µé¢æ–‡ä»¶åç§°*/
+	char *b_local_file;    /*æœ¬åœ°ä¿å­˜çš„æ–‡ä»¶åç§°*/
+	char *b_title;         /*åšå®¢ä¸»é¢˜*/
+	char *b_date;          /*åšå®¢å‘è¡¨æ—¥æœŸ*/
+	int   b_port;          /*ç½‘å€ç«¯å£å·*/
+	int   b_sockfd;        /*ç½‘ç»œå¥—æ¥å­—*/
+	int   b_reads;         /*é˜…è¯»æ¬¡æ•°*/
+	int   b_comments;      /*è¯„è®ºæ¬¡æ•°*/
+	int   b_download;      /*ä¸‹è½½çŠ¶æ€*/
+	int   b_lock;          /*å¤„ç†é”*/
+	int   b_seq_num;       /*åºå·*/
 }blog_info;
 
 typedef struct tag_blog_spider {
@@ -74,15 +74,15 @@ typedef struct tag_blog_spider {
 }blog_spider;
 
 typedef struct tag_blog_rank {
-	int   b_page_total;    /*²©¿Í×ÜÒ³Êı*/
-	char *b_title;         /*²©¿Í±êÌâ*/
-	char *b_page_view;     /*²©¿Í·ÃÎÊÁ¿*/
-	char *b_integral;      /*²©¿Í»ı·Ö*/
-	char *b_ranking;       /*²©¿ÍÅÅÃû*/
-	char *b_original;      /*²©¿ÍÔ­´´ÎÄÕÂÊıÁ¿*/
-	char *b_reship;        /*²©¿Í×ªÔØÎÄÕÂÊıÁ¿*/
-	char *b_translation;   /*²©¿ÍÒëÎÄÎÄÕÂÊıÁ¿*/
-	char *b_comments;      /*²©¿ÍÆÀÂÛÊıÁ¿*/
+	int   b_page_total;    /*åšå®¢æ€»é¡µæ•°*/
+	char *b_title;         /*åšå®¢æ ‡é¢˜*/
+	char *b_page_view;     /*åšå®¢è®¿é—®é‡*/
+	char *b_integral;      /*åšå®¢ç§¯åˆ†*/
+	char *b_ranking;       /*åšå®¢æ’å*/
+	char *b_original;      /*åšå®¢åŸåˆ›æ–‡ç« æ•°é‡*/
+	char *b_reship;        /*åšå®¢è½¬è½½æ–‡ç« æ•°é‡*/
+	char *b_translation;   /*åšå®¢è¯‘æ–‡æ–‡ç« æ•°é‡*/
+	char *b_comments;      /*åšå®¢è¯„è®ºæ•°é‡*/
 }blog_rank;
 
 /*global variable*/
@@ -111,7 +111,7 @@ static int recv_response(const blog_spider * spider);
 
 
 /**************************************************************
-strrstr  : ²éÕÒÖ¸¶¨×Ö·û´®, ·µ»Ø×îºóÒ»´Î³öÏÖµÄµØÖ·, ×Ô¼ºÊµÏÖ
+strrstr  : æŸ¥æ‰¾æŒ‡å®šå­—ç¬¦ä¸², è¿”å›æœ€åä¸€æ¬¡å‡ºç°çš„åœ°å€, è‡ªå·±å®ç°
 ***************************************************************/
 static char *strrstr(const char *s1, const char *s2)
 {
@@ -136,8 +136,8 @@ static char *strrstr(const char *s1, const char *s2)
 }
 
 /*********************************************************
-strfchr  : ²éÕÒÖ¸¶¨×Ö·û´®ÖĞ²»¹æÔòµÄ×Ö·û, ²¢¸³¿Õ
-ÈôÃ»ÓĞÉ¾³ıÕâĞ©²»¹æÔòµÄ×Ö·û,Ôò´´½¨ÎÄ¼şµÄÊ±ºò½«»á³ö´í
+strfchr  : æŸ¥æ‰¾æŒ‡å®šå­—ç¬¦ä¸²ä¸­ä¸è§„åˆ™çš„å­—ç¬¦, å¹¶èµ‹ç©º
+è‹¥æ²¡æœ‰åˆ é™¤è¿™äº›ä¸è§„åˆ™çš„å­—ç¬¦,åˆ™åˆ›å»ºæ–‡ä»¶çš„æ—¶å€™å°†ä¼šå‡ºé”™
 *********************************************************/
 static char *strfchr(char *s)
 {
@@ -157,7 +157,7 @@ static char *strfchr(char *s)
 }
 
 /*********************************************************
-³õÊ¼»¯²©¿ÍÅÀ³æµÄÁ´±í½Úµã, ÉêÇë¿Õ¼ä²¢¸³¿ÕÖµ
+åˆå§‹åŒ–åšå®¢çˆ¬è™«çš„é“¾è¡¨èŠ‚ç‚¹, ç”³è¯·ç©ºé—´å¹¶èµ‹ç©ºå€¼
 *********************************************************/
 static int init_spider(blog_spider * * spider)
 {
@@ -198,16 +198,16 @@ static int init_spider(blog_spider * * spider)
 }
 
 /*********************************************************
-³õÊ¼»¯²©¿Í»ù±¾ĞÅÏ¢½á¹¹Ìå,°üº¬ÒÔÏÂ¼¸¸ö±äÁ¿:
-1.²©¿ÍÒ³Ãæ×ÜÒ³Êı
-2.²©¿Í±êÌâ
-3.²©¿Í·ÃÎÊÁ¿
-4.²©¿Í»ı·Ö
-5.²©¿ÍÅÅÃû
-6.²©¿ÍÔ­´´ÎÄÕÂÊıÁ¿
-7.²©¿Í×ªÔØÎÄÕÂÊıÁ¿
-8.²©¿ÍÒëÎÄÎÄÕÂÊıÁ¿
-9.²©¿ÍÆÀÂÛÊıÁ¿
+åˆå§‹åŒ–åšå®¢åŸºæœ¬ä¿¡æ¯ç»“æ„ä½“,åŒ…å«ä»¥ä¸‹å‡ ä¸ªå˜é‡:
+1.åšå®¢é¡µé¢æ€»é¡µæ•°
+2.åšå®¢æ ‡é¢˜
+3.åšå®¢è®¿é—®é‡
+4.åšå®¢ç§¯åˆ†
+5.åšå®¢æ’å
+6.åšå®¢åŸåˆ›æ–‡ç« æ•°é‡
+7.åšå®¢è½¬è½½æ–‡ç« æ•°é‡
+8.åšå®¢è¯‘æ–‡æ–‡ç« æ•°é‡
+9.åšå®¢è¯„è®ºæ•°é‡
 *********************************************************/
 static int init_rank(blog_rank **rank)
 {
@@ -233,7 +233,7 @@ static int init_rank(blog_rank **rank)
 }
 
 /*********************************************************
-½«²©¿ÍÅÀ³æ½Úµã²åÈëÅÀ³æÁ´±í
+å°†åšå®¢çˆ¬è™«èŠ‚ç‚¹æ’å…¥çˆ¬è™«é“¾è¡¨
 *********************************************************/
 static void insert_spider(blog_spider * spider_head, blog_spider * spider)
 {
@@ -249,7 +249,7 @@ static void insert_spider(blog_spider * spider_head, blog_spider * spider)
 }
 
 /*********************************************************
-·µ»ØÅÀ³æÁ´±í³¤¶È
+è¿”å›çˆ¬è™«é“¾è¡¨é•¿åº¦
 *********************************************************/
 static int spider_size(blog_spider * spider_head)
 {
@@ -267,8 +267,8 @@ static int spider_size(blog_spider * spider_head)
 }
 
 /*********************************************************
-½«ÅÀ³æÁ´±íµÄÄÚÈİ´òÓ¡µ½logÎÄ¼ş,¸ñÊ½Îª"csdn_id.log",±ÈÈç
-ÎÒµÄ²©¿ÍµÄµØÖ·Îª: "gzshun.log"
+å°†çˆ¬è™«é“¾è¡¨çš„å†…å®¹æ‰“å°åˆ°logæ–‡ä»¶,æ ¼å¼ä¸º"csdn_id.log",æ¯”å¦‚
+æˆ‘çš„åšå®¢çš„åœ°å€ä¸º: "gzshun.log"
 *********************************************************/
 static void print_spider(blog_spider *spider_head)
 {
@@ -315,7 +315,7 @@ static void print_spider(blog_spider *spider_head)
 }
 
 /*********************************************************
-½«²©¿ÍµÄ»ù±¾ĞÅÏ¢´òÓ¡µ½±ê×¼Êä³ö
+å°†åšå®¢çš„åŸºæœ¬ä¿¡æ¯æ‰“å°åˆ°æ ‡å‡†è¾“å‡º
 *********************************************************/
 static void print_rank(blog_rank *rank)
 {
@@ -381,7 +381,7 @@ static void print_rank(blog_rank *rank)
 }
 
 /*********************************************************
-ÊÍ·ÅÅÀ³æÁ´±íµÄ¿Õ¼ä
+é‡Šæ”¾çˆ¬è™«é“¾è¡¨çš„ç©ºé—´
 *********************************************************/
 static void free_spider(blog_spider * spider_head)
 {
@@ -412,14 +412,14 @@ static void free_spider(blog_spider * spider_head)
 		
 		free(pspider->blog);
 
-		tmp = pspider->next; /*±£´æÏÂÒ»¸ö½ÚµãµØÖ·*/
+		tmp = pspider->next; /*ä¿å­˜ä¸‹ä¸€ä¸ªèŠ‚ç‚¹åœ°å€*/
 		free(pspider);
 		pspider = tmp;
 	}
 }
 
 /*********************************************************
-ÊÍ·Å²©¿Í»ù±¾ĞÅÏ¢½á¹¹Ìå¿Õ¼ä
+é‡Šæ”¾åšå®¢åŸºæœ¬ä¿¡æ¯ç»“æ„ä½“ç©ºé—´
 *********************************************************/
 static void free_rank(blog_rank *rank)
 {
@@ -452,9 +452,9 @@ static void free_rank(blog_rank *rank)
 }
 
 /**********************************************************
-»ñÈ¡²©¿ÍµÄ»ù±¾ĞÅÏ¢,°üÀ¨ÒÔÏÂ¼¸µã(ÒÔÏÂÊÇ°´ÕÕÒ³ÃæµÄË³Ğò,
-Èô²»°´ÕÕ¸ÃË³Ğò,Ã¿´Î²éÕÒ±ØĞëÖØÉèÆ«ÒÆÁ¿µ½¿ªÍ·rewind(fp)):
-ÕâÀï»ñÈ¡ºÜ¶àĞÅÏ¢, ¾ßÌå²Î¿¼blog_spiderÓëblog_rank½á¹¹Ìå
+è·å–åšå®¢çš„åŸºæœ¬ä¿¡æ¯,åŒ…æ‹¬ä»¥ä¸‹å‡ ç‚¹(ä»¥ä¸‹æ˜¯æŒ‰ç…§é¡µé¢çš„é¡ºåº,
+è‹¥ä¸æŒ‰ç…§è¯¥é¡ºåº,æ¯æ¬¡æŸ¥æ‰¾å¿…é¡»é‡è®¾åç§»é‡åˆ°å¼€å¤´rewind(fp)):
+è¿™é‡Œè·å–å¾ˆå¤šä¿¡æ¯, å…·ä½“å‚è€ƒblog_spiderä¸blog_rankç»“æ„ä½“
 **********************************************************/
 static int get_blog_info(blog_spider * spider_head, blog_rank * rank)
 {
@@ -472,7 +472,7 @@ static int get_blog_info(blog_spider * spider_head, blog_rank * rank)
 		return -1;
 	}
 
-	/*²éÕÒ²©¿ÍµÄ±êÌâ*/
+	/*æŸ¥æ‰¾åšå®¢çš„æ ‡é¢˜*/
 	sprintf(tmpbuf, "<a href=\"/%s\">", csdn_id);
 	while (fgets(line, sizeof(line), fp)) {
 		posA = strstr(line, tmpbuf);
@@ -481,7 +481,7 @@ static int get_blog_info(blog_spider * spider_head, blog_rank * rank)
 			posA += strlen(tmpbuf);
 			posB = strstr(posA, "</a>");
 			*posB = 0;
-			/*ÉèÖÃÅÀ³æÍ·½áµãµÄ±êÌâ*/
+			/*è®¾ç½®çˆ¬è™«å¤´ç»“ç‚¹çš„æ ‡é¢˜*/
 			spider_head->blog->b_title = strdup(posA);
 			rank->b_title = strdup(posA);
 			
@@ -492,7 +492,7 @@ static int get_blog_info(blog_spider * spider_head, blog_rank * rank)
 		}
 	}
 
-	/*²éÕÒ²©¿ÍÎÄÕÂµÄ×ÜÒ³Êı*/
+	/*æŸ¥æ‰¾åšå®¢æ–‡ç« çš„æ€»é¡µæ•°*/
 	while (fgets(line, sizeof(line), fp)) {
 		posA = strstr(line, HTML_MULPAGE);
 		
@@ -500,7 +500,7 @@ static int get_blog_info(blog_spider * spider_head, blog_rank * rank)
 			fgets(line, sizeof(line), fp);
 			posB = strrstr(line, BLOG_HREF);
 
-			/* /gzshun/article/list/N, N¾ÍÊÇ×ÜÒ³Êı */
+			/* /gzshun/article/list/N, Nå°±æ˜¯æ€»é¡µæ•° */
 			memset(tmpbuf, 0, sizeof(tmpbuf));
 			sprintf(tmpbuf, "/%s/%s/", csdn_id, BLOG_NEXT_LIST);
 			posB += strlen(BLOG_HREF) + strlen(tmpbuf);
@@ -517,7 +517,7 @@ static int get_blog_info(blog_spider * spider_head, blog_rank * rank)
 		}
 	}
 
-	/*×Ü¹²ÓĞ7ÌõĞÅÏ¢: ·ÃÎÊ »ı·Ö ÅÅÃû Ô­´´ ×ªÔØ ÒëÎÄ ÆÀÂÛ*/
+	/*æ€»å…±æœ‰7æ¡ä¿¡æ¯: è®¿é—® ç§¯åˆ† æ’å åŸåˆ› è½¬è½½ è¯‘æ–‡ è¯„è®º*/
 	while (fgets(line, sizeof(line), fp)) {
 		posA = strstr(line, BLOG_RANK);
 
@@ -561,7 +561,7 @@ static int get_blog_info(blog_spider * spider_head, blog_rank * rank)
 }
 
 /*****************************************************************
-·ÖÎö¸öÈËµÄ²©¿ÍÖ÷Ò³, »ñÈ¡ËùÓĞÎÄÕÂµÄURL, ½«²©¿ÍĞÅÏ¢Ìí¼Óµ½ÅÀ³æÁ´±íÖĞ.
+åˆ†æä¸ªäººçš„åšå®¢ä¸»é¡µ, è·å–æ‰€æœ‰æ–‡ç« çš„URL, å°†åšå®¢ä¿¡æ¯æ·»åŠ åˆ°çˆ¬è™«é“¾è¡¨ä¸­.
 *****************************************************************/
 static int analyse_index(blog_spider *spider_head)
 {
@@ -592,12 +592,12 @@ static int analyse_index(blog_spider *spider_head)
 			break;
 		}
 
-		/*²éÕÒ²©¿Í*/
+		/*æŸ¥æ‰¾åšå®¢*/
 		while (fgets(line, sizeof(line), fp)) {
 			posA = strstr(line, HTML_ARTICLE);
 
 			if (posA) {
-				/*²éÕÒ²©¿ÍÍøÖ·*/
+				/*æŸ¥æ‰¾åšå®¢ç½‘å€*/
 				posA += strlen(HTML_ARTICLE) + strlen(BLOG_HREF);
 				posB = strchr(posA, '"');
 				*posB = 0;
@@ -606,21 +606,21 @@ static int analyse_index(blog_spider *spider_head)
 				strcpy(page_file, posA);
 				sprintf(url, "%s%s", CSDN_BLOG_URL, posA);
 
-				/*²éÕÒ²©¿Í±êÌâ*/
+				/*æŸ¥æ‰¾åšå®¢æ ‡é¢˜*/
 				#if 0
 				posB += 1;
 				posC = strstr(posB, BLOG_TITLE);
-				/*Óë²©¿ÍµØÖ·´¦ÔÚÍ¬Ò»ĞĞ*/
+				/*ä¸åšå®¢åœ°å€å¤„åœ¨åŒä¸€è¡Œ*/
 				posC += strlen(BLOG_TITLE);
 				posD = strstr(posC, "\">");
 				*posD = 0;
 				#else
-				/*ÔÚ²©¿ÍµØÖ·µÄÏÂÒ»ĞĞ*/
+				/*åœ¨åšå®¢åœ°å€çš„ä¸‹ä¸€è¡Œ*/
 				fgets(line, sizeof(line), fp);
 				
 				i = 0;
 				while (1) {
-					/*´ÓµÚÒ»¸ö²»ÊÇ¿Õ¸ñµÄ×Ö·û¿ªÊ¼¶ÁÈ¡*/
+					/*ä»ç¬¬ä¸€ä¸ªä¸æ˜¯ç©ºæ ¼çš„å­—ç¬¦å¼€å§‹è¯»å–*/
 					if (line[i] != ' ') {
 						memset(title, 0, sizeof(title));
 						line[strlen(line) - 1] = 0;
@@ -631,7 +631,7 @@ static int analyse_index(blog_spider *spider_head)
 				}
 				#endif
 
-				/*²éÕÒ²©¿Í·¢±íÈÕÆÚ*/
+				/*æŸ¥æ‰¾åšå®¢å‘è¡¨æ—¥æœŸ*/
 				while (fgets(line, sizeof(line), fp)) {
 					posA = strstr(line, BLOG_DATE);
 					
@@ -646,7 +646,7 @@ static int analyse_index(blog_spider *spider_head)
 					}
 				}
 
-				/*²éÕÒ²©¿ÍÔÄ¶Á´ÎÊı*/
+				/*æŸ¥æ‰¾åšå®¢é˜…è¯»æ¬¡æ•°*/
 				while (fgets(line, sizeof(line), fp)) {
 					posA = strstr(line, BLOG_READ);
 
@@ -660,7 +660,7 @@ static int analyse_index(blog_spider *spider_head)
 					}
 				}
 
-				/*²éÕÒ²©¿ÍÆÀÂÛ´ÎÊı*/
+				/*æŸ¥æ‰¾åšå®¢è¯„è®ºæ¬¡æ•°*/
 				while (fgets(line, sizeof(line), fp)) {
 					posA = strstr(line, BLOG_COMMENT);
 
@@ -700,7 +700,7 @@ static int analyse_index(blog_spider *spider_head)
 				sprintf(tmpbuf, "%s/%s.html", csdn_id, tmpbuf2);
 				spider->blog->b_local_file  = strdup(tmpbuf);
 
-				/*½«²©¿Í²åÈë²©¿ÍÅÀ³æÁ´±í*/
+				/*å°†åšå®¢æ’å…¥åšå®¢çˆ¬è™«é“¾è¡¨*/
 				insert_spider(spider_head, spider);
 				fputc('.', stdout);
 			}
@@ -717,7 +717,7 @@ static int analyse_index(blog_spider *spider_head)
 }
 
 /*****************************************************************
-ÏÂÔØ¸öÈËµÄ²©¿ÍÖ÷Ò³
+ä¸‹è½½ä¸ªäººçš„åšå®¢ä¸»é¡µ
 *****************************************************************/
 static int download_index(blog_spider * spider_head)
 {
@@ -748,7 +748,7 @@ fail_download_index:
 }
 
 /**********************************************************
-ÏÂÔØ²©¿ÍÎÄÕÂ
+ä¸‹è½½åšå®¢æ–‡ç« 
 **********************************************************/
 static int download_blog(blog_spider * spider)
 {
@@ -779,7 +779,7 @@ fail_download_blog:
 }
 
 /**********************************************************
-¸ù¾İÖ÷»úÃû»ñÈ¡µ½Ö÷»úĞÅÏ¢,Ö÷ÒªÊÇ»ñÈ¡µ½IPµØÖ·.
+æ ¹æ®ä¸»æœºåè·å–åˆ°ä¸»æœºä¿¡æ¯,ä¸»è¦æ˜¯è·å–åˆ°IPåœ°å€.
 **********************************************************/
 static int get_web_host(const char * hostname)
 {
@@ -800,7 +800,7 @@ static int get_web_host(const char * hostname)
 }
 
 /**********************************************************
-³õÊ¼»¯SOCKET,²¢Á¬½Óµ½ÍøÕ¾·şÎñÆ÷
+åˆå§‹åŒ–SOCKET,å¹¶è¿æ¥åˆ°ç½‘ç«™æœåŠ¡å™¨
 **********************************************************/
 static int connect_web(const blog_spider * spider)
 {	
@@ -834,7 +834,7 @@ static int connect_web(const blog_spider * spider)
 }
 
 /**********************************************************
-ÏòÍøÕ¾·şÎñÆ÷·¢ËÍÇëÇó
+å‘ç½‘ç«™æœåŠ¡å™¨å‘é€è¯·æ±‚
 **********************************************************/
 static int send_request(const blog_spider * spider)
 {
@@ -867,13 +867,13 @@ static int send_request(const blog_spider * spider)
 }
 
 /***************************************************************************************
-½ÓÊÜÍøÕ¾·şÎñÆ÷µÄ·´À¡ĞÅÏ¢,µÃµ½ÇëÇóµÄÎÄ¼şÄÚÈİ
-Ïò·şÎñÆ÷·¢ËÍÇëÇóĞÅÏ¢»òÕß·şÎñÆ÷µÄÏìÓ¦ÏûÏ¢,ÒÔ¿ÕĞĞ½áÊø,ËùÒÔ¿ÉÒÔÓÃ"\r\n\r\n"À´ÅĞ¶Ï½áÊø±êÖ¾
+æ¥å—ç½‘ç«™æœåŠ¡å™¨çš„åé¦ˆä¿¡æ¯,å¾—åˆ°è¯·æ±‚çš„æ–‡ä»¶å†…å®¹
+å‘æœåŠ¡å™¨å‘é€è¯·æ±‚ä¿¡æ¯æˆ–è€…æœåŠ¡å™¨çš„å“åº”æ¶ˆæ¯,ä»¥ç©ºè¡Œç»“æŸ,æ‰€ä»¥å¯ä»¥ç”¨"\r\n\r\n"æ¥åˆ¤æ–­ç»“æŸæ ‡å¿—
 select:
 int select (int maxfdp1, fd_set *readset, fd_set *writeset, fd_set *exceptset, const struct timeval * timeout);
->0: ÕıÈ·
--1: ³ö´í
-0 : ³¬Ê±
+>0: æ­£ç¡®
+-1: å‡ºé”™
+0 : è¶…æ—¶
 void FD_ZERO(fd_set *fdset); // clear all bits in fdset
 void FD_SET(int fd, fd_set *fdset); // turn on the bit for fd in fdset
 void FD_CLR(int fd, fd_set *fdset); // turn off the bit for fd in fdset
@@ -887,7 +887,7 @@ static int recv_response(const blog_spider * spider)
 	struct timeval timeout;
 	FILE *fp;
 
-	/*½¨ÒéÊ±¼äÒª³¤µã, selectÊ§°Ü¿ÉÄÜµÄÔ­ÒòÊÇÊÕµ½ÍøÕ¾µÄÏìÓ¦ÏûÏ¢³¬Ê±*/
+	/*å»ºè®®æ—¶é—´è¦é•¿ç‚¹, selectå¤±è´¥å¯èƒ½çš„åŸå› æ˜¯æ”¶åˆ°ç½‘ç«™çš„å“åº”æ¶ˆæ¯è¶…æ—¶*/
 	timeout.tv_sec  = 30;
 	timeout.tv_usec = 0;
 
@@ -897,26 +897,26 @@ static int recv_response(const blog_spider * spider)
 	while (1) {
 		ret = select(spider->blog->b_sockfd+1, &read_fds, NULL, NULL, &timeout);
 		if (-1 == ret) {
-			/*³ö´í,Ö±½Ó·µ»Ø´íÎó*/
+			/*å‡ºé”™,ç›´æ¥è¿”å›é”™è¯¯*/
 			#ifdef SPIDER_DEBUG
 			fprintf(stderr, "select: %s\n", strerror(errno));
 			#endif
 			return -1;
 		}
 		else if (0 == ret) {
-			/*³¬Ê±, ¼ÌĞøÂÖÑ¯*/
+			/*è¶…æ—¶, ç»§ç»­è½®è¯¢*/
 			#ifdef SPIDER_DEBUG
 			fprintf(stderr, "select timeout: %s\n", spider->blog->b_title);
 			#endif
 			goto fail_recv_response;
 		}
 		
-		/*½ÓÊÜµ½Êı¾İ*/
+		/*æ¥å—åˆ°æ•°æ®*/
 		if (FD_ISSET(spider->blog->b_sockfd, &read_fds)) {
 			end = 0;
 			count = 0;
 
-			/*ÕâÀï³ö´í¿ÉÄÜÊÇÎÄ¼şÃû²»¹æÔò,±ÈÈç"3/5",'/'ÔÚLinuxÊÇ´ú±íÄ¿Â¼*/
+			/*è¿™é‡Œå‡ºé”™å¯èƒ½æ˜¯æ–‡ä»¶åä¸è§„åˆ™,æ¯”å¦‚"3/5",'/'åœ¨Linuxæ˜¯ä»£è¡¨ç›®å½•*/
 			fp = fopen(spider->blog->b_local_file, "w+");
 			if (NULL == fp) {
 				goto fail_recv_response;
@@ -932,7 +932,7 @@ static int recv_response(const blog_spider * spider)
 					else {
 						end = 0;
 					}
-					/*ÕâÀïÊÇhttp·şÎñÆ÷·´À¡µÄÏûÏ¢Í·,ÈôĞèÒª,Ôò¿ÉÒÔ±£´æÏÂÀ´*/
+					/*è¿™é‡Œæ˜¯httpæœåŠ¡å™¨åé¦ˆçš„æ¶ˆæ¯å¤´,è‹¥éœ€è¦,åˆ™å¯ä»¥ä¿å­˜ä¸‹æ¥*/
 				}
 				else {
 					fputc(recvbuf[0], fp);
@@ -977,7 +977,7 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 
-	/*³õÊ¼»¯ÅÀ³æÁ´±íµÄÍ·½áµã*/
+	/*åˆå§‹åŒ–çˆ¬è™«é“¾è¡¨çš„å¤´ç»“ç‚¹*/
 	retval = init_spider(&spider_head);
 	if (retval < 0) {
 		goto fail_main;
@@ -1001,7 +1001,7 @@ int main(int argc, char **argv)
 	spider_head->blog->b_page_file = strdup(tmpbuf);
 
 	/*******************************************************
-	ÏÈ»ñÈ¡IPµØÖ·.
+	å…ˆè·å–IPåœ°å€.
 	*******************************************************/
 	retval = get_web_host(CSDN_BLOG_HOST);
 	if (retval < 0) {
@@ -1009,8 +1009,8 @@ int main(int argc, char **argv)
 	}
 
 	/*******************************************************
-	ÏÂÔØ¸öÈËµÄ²©¿ÍÖ÷Ò³,Èç:http://blog.csdn.net/gzshun
-	¸öÈËµÄ²©¿ÍÖ÷Ò³¿ÉÄÜÓĞºÜ¶àÎÄÕÂ,ÄÇÃ´¾Í»áÓĞºÃ¼¸Ò³
+	ä¸‹è½½ä¸ªäººçš„åšå®¢ä¸»é¡µ,å¦‚:http://blog.csdn.net/gzshun
+	ä¸ªäººçš„åšå®¢ä¸»é¡µå¯èƒ½æœ‰å¾ˆå¤šæ–‡ç« ,é‚£ä¹ˆå°±ä¼šæœ‰å¥½å‡ é¡µ
 	*******************************************************/
 	retval = download_index(spider_head);
 	if (retval < 0) {
@@ -1025,7 +1025,7 @@ int main(int argc, char **argv)
 	setvbuf(stdout, NULL, _IONBF, 0);
 
 	/*******************************************************
-	Ñ­»·ÏÂÔØÃ¿Ò»Ò³,²¢·ÖÎö³ö²©¿ÍµÄURL.
+	å¾ªç¯ä¸‹è½½æ¯ä¸€é¡µ,å¹¶åˆ†æå‡ºåšå®¢çš„URL.
 	*******************************************************/
 	for (i = 1; i <= b_rank->b_page_total; i++) {
 		memset(tmpbuf, 0, sizeof(tmpbuf));
@@ -1051,7 +1051,7 @@ int main(int argc, char **argv)
 	print_rank(b_rank);
 	sleep(2);
 
-	/*¿ªÊ¼ÏÂÔØËùÓĞ²©¿Í*/
+	/*å¼€å§‹ä¸‹è½½æ‰€æœ‰åšå®¢*/
 	mkdir(csdn_id, 0755);
 	spider = spider_head->next;
 	while (spider) {
